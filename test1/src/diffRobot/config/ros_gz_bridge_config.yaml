@@ -1,0 +1,34 @@
+# Bridge for laser scan topic
+- ros_topic_name: "scan"
+  gz_topic_name: "scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: "GZ_TO_ROS"  # BIDIRECTIONAL or ROS_TO_GZ
+
+# Bridge for clock topic
+- ros_topic_name: "clock"
+  gz_topic_name: "clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "gz.msgs.Clock"
+  direction: "GZ_TO_ROS"  # BIDIRECTIONAL or ROS_TO_GZ
+
+# Bridge for joint states topic
+- ros_topic_name: "joint_states"  # has to be "joint_states" for ROS because rviz by default subscribes to this topic otherwise it will show error
+  gz_topic_name: "joint_state" # the topic name defined in the diffRobot.urdf file
+  ros_type_name: "sensor_msgs/msg/JointState"
+  gz_type_name: "gz.msgs.Model"
+  direction: "GZ_TO_ROS"  # BIDIRECTIONAL or ROS_TO_GZ
+
+# Bridge for odometry topic
+- ros_topic_name: "odom"
+  gz_topic_name: "model/diffRobot/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: "BIDIRECTIONAL"  # BIDIRECTIONAL or ROS_TO_GZ
+
+# Bridge for cmd_vel topic
+- ros_topic_name: "cmd_vel"
+  gz_topic_name: "model/diffRobot/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "gz.msgs.Twist"
+  direction: "ROS_TO_GZ"  # BIDIRECTIONAL or ROS_TO_GZ

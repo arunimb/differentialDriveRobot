@@ -1,0 +1,40 @@
+src/
+└── diffRobot
+    ├── config
+    │   └── ros_gz_bridge_config.yaml
+    ├── diffRobot
+    │   ├── __init__.py
+    │   └── nodes
+    ├── launch
+    │   ├── diffRobot_gazebo2.launch.py
+    ├── map
+    │   ├── map.pgm
+    │   └── map.yaml
+    ├── meshes
+    │   ├── base_link.STL
+    │   ├── camera_link.STL
+    │   ├── castor_wheel_link.STL
+    │   ├── imu_link.STL
+    │   ├── left_wheel_link.STL
+    │   ├── lidar_link.STL
+    │   └── right_wheel_link.STL
+    ├── package.xml
+    ├── resource
+    │   └── diffRobot
+    ├── rviz
+    │   ├── diffRobot.rviz
+    │   └── nav2_slam.rviz
+    ├── scripts
+    │   ├── check_mesh_paths.py
+    │   └── odom_tf_broadcaster.py
+    ├── setup.cfg
+    ├── setup.py
+    ├── test
+    │   ├── test_copyright.py
+    │   ├── test_flake8.py
+    │   └── test_pep257.py
+    ├── urdf
+    │   ├── diffRobot.urdf
+    │   └── diffRobot.urdf.old
+    └── worlds
+        └── enclosed_obstacles.world
