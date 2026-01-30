@@ -1,0 +1,32 @@
+src/
+└── diffRobot
+    ├── config
+    │   └── ros_gz_bridge_config.yaml
+    ├── diffRobot
+    │   └── __init__.py
+    ├── launch
+    │   └── diffRobot_gazebo2.launch.py
+    ├── map
+    ├── meshes
+    │   ├── base_link.STL
+    │   ├── camera_link.STL
+    │   ├── castor_wheel_link.STL
+    │   ├── imu_link.STL
+    │   ├── left_wheel_link.STL
+    │   ├── lidar_link.STL
+    │   └── right_wheel_link.STL
+    ├── package.xml
+    ├── resource
+    │   └── diffRobot
+    ├── rviz
+    │   └── teleopConfig.rviz
+    ├── scripts
+    ├── setup.cfg
+    ├── setup.py
+    ├── test
+    ├── urdf
+    │   └── diffRobot.urdf
+    └── worlds
+        └── enclosed_obstacles.world
+
+13 directories, 17 files
