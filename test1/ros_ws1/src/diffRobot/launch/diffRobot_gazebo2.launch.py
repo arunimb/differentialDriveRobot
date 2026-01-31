@@ -111,6 +111,7 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 'robot_description': robot_description_with_gazebo,
+                'use_sim_time': True
             }]
         ),
 
@@ -171,6 +172,21 @@ def generate_launch_description():
                     name='ros_gz_bridge',
                     parameters=[{'config_file': bridge_config_path}],
                     output='screen'
+                )
+            ]
+        ),
+
+        # Sensor fusion with ekf 
+        TimerAction(
+            period=20.0,
+            actions=[
+                # EKF for sensor fusion (IMU + Wheel Odometry)
+                Node(
+                    package='robot_localization',
+                    executable='ekf_node',
+                    name='ekf_filter_node',
+                    output='screen',
+                    parameters=[os.path.join(pkg_share, 'config', 'ekf.yaml'), {'use_sim_time': True}]
                 )
             ]
         ),

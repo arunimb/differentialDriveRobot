@@ -1,0 +1,66 @@
+ekf_filter_node:
+  ros__parameters:
+    # Basic settings
+    frequency: 50.0
+    two_d_mode: true
+    world_frame: odom
+    map_frame: map
+    odom_frame: odom
+    base_link_frame: base_link
+    use_sim_time: true
+
+    # To prevent EKF from publishing TF whuch may conflict with gazebo TF
+    publish_tf: true
+    
+    # Input topics
+    odom0: /odom
+    imu0: /imu/data
+    
+    # Odom configuration (from wheel encoders)
+    # This 9-element array tells robot_localization which odometry data to use from the /odom topic
+    odom0_config: [true, true, false, false, false, true, true, true, false]  # x, y, z, roll, pitch, yaw, vx, vy, vz
+    odom0_differential: false
+    odom0_relative: false
+    
+    # IMU configuration (for orientation)
+    imu0_config: [false, false, false, false, false, true, false, false, false, false, false, false]  # x, y, z, roll, pitch, yaw, vx, vy, vz, ax, ay, az
+    imu0_differential: true
+    imu0_remove_gravitational_acceleration: true
+    
+    # IMU orientation (IMU is mounted upright, Z up)
+    # All values must be floats (not integers)
+    imu0_orientation: [1.0, 0.0, 0.0, 
+                      0.0, 1.0, 0.0, 
+                      0.0, 0.0, 1.0]
+
+    # sensor rejection thresholds
+    odom0_pose_rejection_threshold: 10.0  # Reject if pose jumps >10m
+    odom0_twist_rejection_threshold: 1.0   # Reject if velocity >1m/s
+    
+    # Process noise covariance - requires tuning
+    # IMPORTANT: All values must be floats, not integers
+    process_noise_covariance: [0.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                               0.0, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                               0.0, 0.0, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                               0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0,
+                               0.0, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0, 0.0,
+                               0.0, 0.0, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0,
+                               0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0,
+                               0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.01, 0.0,
+                               0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.01]
+    
+    # Initial estimate covariance
+    # IMPORTANT: All values must be floats, not integers
+    initial_estimate_covariance: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                  0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                  0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                  0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                  0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
+                                  0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+                                  0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+                                  0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
+                                  0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+    
+    # Debug
+    print_diagnostics: true
+    debug: false

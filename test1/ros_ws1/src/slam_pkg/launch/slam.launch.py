@@ -55,6 +55,7 @@ def generate_launch_description():
             remappings=[
                 ('/scan', '/scan'),  # Must match your bridged lidar topic
                 ('/map', '/map'),
+                ('/odom', '/odometry/filtered'),  # CRITICAL: Use fused odometry!
             ]
         ),
     ])
