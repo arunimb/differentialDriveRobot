@@ -1,0 +1,7 @@
+ros2 launch diffRobot diffRobot_gazebo2.launch.py
+ros2 launch slam_pkg slam.launch.py
+ros2 run rviz2 rviz2 --ros-args -p use_sim_time:=true
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+ros2 lifecycle set /slam_toolbox configure
+ros2 lifecycle set /slam_toolbox activate

@@ -1,25 +1,15 @@
 slam_toolbox:
   ros__parameters:
-    # Basic configuration
-    mode: "mapping"  # Options: "mapping", "localization", "lifelong"
-    
-    # Frame configuration - CRITICAL - must match your diffRobot
+    mode: "mapping"
+    use_sim_time: true
     odom_frame: "odom"
-    map_frame: "map"
+    map_frame: "map" 
     base_frame: "base_link"
-    
-    # Sensor configuration
-    max_laser_range: 10.0  # Matches your lidar URDF
-    minimum_time_interval: 0.5
-    transform_timeout: 0.2
-    
-    # Map parameters
+    scan_topic: "/scan"
     resolution: 0.05
-    map_update_interval: 5.0
-    
-    # Loop closure
+    max_laser_range: 10.0
+    minimum_time_interval: 0.2
+    throttle_scans: 1
     do_loop_closing: true
-    
-    # Visualization
+    loop_closure_search_distance: 5.0
     publish_occupancy_grid: true
-    publish_pose_graph: true

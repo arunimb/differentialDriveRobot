@@ -25,7 +25,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'odom_tf_broadcaster = slam_pkg.nodes.odom_tf_broadcaster:main',
+            #'odom_tf_broadcaster = slam_pkg.nodes.odom_tf_broadcaster:main',
         ],
     },
 )

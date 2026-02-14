@@ -176,17 +176,19 @@ def generate_launch_description():
             ]
         ),
 
-        # Sensor fusion with ekf 
+        # # Sensor fusion with ekf 
         TimerAction(
-            period=20.0,
+            period=10.0,  # Wait 8 seconds for bridge to be ready
             actions=[
-                # EKF for sensor fusion (IMU + Wheel Odometry)
                 Node(
                     package='robot_localization',
                     executable='ekf_node',
                     name='ekf_filter_node',
                     output='screen',
-                    parameters=[os.path.join(pkg_share, 'config', 'ekf.yaml'), {'use_sim_time': True}]
+                    parameters=[os.path.join(pkg_share, 'config', 'ekf.yaml')],
+                    remappings=[
+                        ('odometry/filtered', '/odometry/filtered')
+                    ]
                 )
             ]
         ),

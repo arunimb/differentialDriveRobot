@@ -1,66 +1,69 @@
 ekf_filter_node:
   ros__parameters:
-    # Basic settings
+    # ========== BASIC SETTINGS ==========
     frequency: 50.0
-    two_d_mode: true
-    world_frame: odom
-    map_frame: map
-    odom_frame: odom
-    base_link_frame: base_link
+    two_d_mode: true            # 2D mode for ground robots
+    world_frame: "odom"         # Output frame - matches Gazebo
+    base_link_frame: "base_link"
+    odom_frame: "odom"          # Input odom frame
+    map_frame: "map"
     use_sim_time: true
-
-    # To prevent EKF from publishing TF whuch may conflict with gazebo TF
-    publish_tf: true
+    publish_tf: false           # CRITICAL: False - Gazebo publishes TF
     
-    # Input topics
-    odom0: /odom
-    imu0: /imu/data
+    # ========== SENSOR FUSION ==========
+    # Fuse BOTH wheel odometry and IMU
+    odom0: "/odom"              # Wheel odometry from Gazebo
+    imu0: "/imu/data"           # IMU from Gazebo bridge
     
-    # Odom configuration (from wheel encoders)
-    # This 9-element array tells robot_localization which odometry data to use from the /odom topic
-    odom0_config: [true, true, false, false, false, true, true, true, false]  # x, y, z, roll, pitch, yaw, vx, vy, vz
+    # ========== WHEEL ODOMETRY CONFIG ==========
+    # Use: X, Y position + Yaw orientation from wheels
+    odom0_config: [true,  true,  false,   # x, y, z position
+                   false, false, true,    # roll, pitch, yaw orientation
+                   false, false, false,   # x, y, z linear velocity
+                   false, false, false]   # roll, pitch, yaw angular velocity
     odom0_differential: false
     odom0_relative: false
     
-    # IMU configuration (for orientation)
-    imu0_config: [false, false, false, false, false, true, false, false, false, false, false, false]  # x, y, z, roll, pitch, yaw, vx, vy, vz, ax, ay, az
-    imu0_differential: true
+    # ========== IMU CONFIG ==========
+    # Use: Yaw orientation + Angular velocity from IMU
+    imu0_config: [false, false, false,   # DON'T use IMU for position
+                  false, false, true,    # Use IMU for yaw orientation
+                  false, false, false,   # DON'T use linear velocity
+                  false, false, true]    # Use angular velocity (yaw rate)
+    imu0_differential: false
+    imu0_relative: false
+    
+    # Remove gravitational acceleration from IMU (IMPORTANT!)
     imu0_remove_gravitational_acceleration: true
     
-    # IMU orientation (IMU is mounted upright, Z up)
-    # All values must be floats (not integers)
-    imu0_orientation: [1.0, 0.0, 0.0, 
-                      0.0, 1.0, 0.0, 
-                      0.0, 0.0, 1.0]
-
-    # sensor rejection thresholds
-    odom0_pose_rejection_threshold: 10.0  # Reject if pose jumps >10m
-    odom0_twist_rejection_threshold: 1.0   # Reject if velocity >1m/s
+    # ========== PROCESS NOISE ==========
+    # Lower noise = more trust in sensors
+    process_noise_covariance: [0.05, 0.0, 0.0, 0.0, 0.0, 0.0,
+                               0.0, 0.05, 0.0, 0.0, 0.0, 0.0,
+                               0.0, 0.0, 0.03, 0.0, 0.0, 0.0,
+                               0.0, 0.0, 0.0, 0.01, 0.0, 0.0,
+                               0.0, 0.0, 0.0, 0.0, 0.01, 0.0,
+                               0.0, 0.0, 0.0, 0.0, 0.0, 0.03]
     
-    # Process noise covariance - requires tuning
-    # IMPORTANT: All values must be floats, not integers
-    process_noise_covariance: [0.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                               0.0, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                               0.0, 0.0, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                               0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0,
-                               0.0, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0, 0.0,
-                               0.0, 0.0, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0,
-                               0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0,
-                               0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.01, 0.0,
-                               0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.01]
+    # ========== INITIAL UNCERTAINTY ==========
+    initial_estimate_covariance: [0.1, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                  0.0, 0.1, 0.0, 0.0, 0.0, 0.0,
+                                  0.0, 0.0, 0.1, 0.0, 0.0, 0.0,
+                                  0.0, 0.0, 0.0, 0.1, 0.0, 0.0,
+                                  0.0, 0.0, 0.0, 0.0, 0.1, 0.0,
+                                  0.0, 0.0, 0.0, 0.0, 0.0, 0.1]
     
-    # Initial estimate covariance
-    # IMPORTANT: All values must be floats, not integers
-    initial_estimate_covariance: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                                  0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                                  0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                                  0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                                  0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
-                                  0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
-                                  0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,
-                                  0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
-                                  0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+    # ========== SENSOR NOISE ==========
+    # Wheel odometry noise (Gazebo is pretty accurate)
+    odom0_pose_rejection_threshold: 5.0
+    odom0_twist_rejection_threshold: 1.0
     
-    # Debug
+    # IMU noise settings
+    imu0_pose_rejection_threshold: 10.0
+    imu0_twist_rejection_threshold: 5.0
+    
+    # ========== OUTPUT SETTINGS ==========
+    odom0_queue_size: 10
+    imu0_queue_size: 10
     print_diagnostics: true
     debug: false

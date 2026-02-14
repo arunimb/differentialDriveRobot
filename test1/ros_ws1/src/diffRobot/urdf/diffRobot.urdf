@@ -432,7 +432,8 @@
     <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
       <left_joint>left_wheel_joint</left_joint>
       <right_joint>right_wheel_joint</right_joint>
-      <wheel_separation>0.156</wheel_separation>
+      <!-- <wheel_separation>0.020752</wheel_separation> -->
+      <wheel_separation>0.132</wheel_separation>
       <wheel_radius>0.04</wheel_radius> <!-- Approximate radius (diameter 0.1 / 2) -->
       <odom_publish_frequency>50</odom_publish_frequency>
       <topic>/model/diffRobot/cmd_vel</topic>
@@ -535,16 +536,16 @@
           <!-- Angular velocity noise (rad/s) -->
           <rate>
             <mean>0.0</mean>
-            <stddev>0.0</stddev>
-            <bias_mean>0.000000</bias_mean>
-            <bias_stddev>0.000000</bias_stddev>
+            <stddev>0.001</stddev>
+            <bias_mean>0.0000001</bias_mean>
+            <bias_stddev>0.0000001</bias_stddev>
           </rate>
           <!-- Linear acceleration noise (m/s²) -->
           <accel>
-            <mean>0.0</mean>
-            <stddev>0.00</stddev>
-            <bias_mean>0.0</bias_mean>
-            <bias_stddev>0.000</bias_stddev>
+            <mean>0.001</mean>
+            <stddev>0.001</stddev>
+            <bias_mean>0.001</bias_mean>
+            <bias_stddev>0.0001</bias_stddev>
           </accel>
         </noise>
       </imu>

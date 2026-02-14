@@ -31,14 +31,14 @@ def generate_launch_description():
         ),
 
         
-        # Odom TF Broadcaster Node
-        Node(
-            package='slam_pkg',
-            executable='odom_tf_broadcaster',
-            name='odom_tf_broadcaster',
-            output='screen',
-            parameters=[{'use_sim_time': use_sim_time}]
-        ),
+        # # Odom TF Broadcaster Node
+        # Node(
+        #     package='slam_pkg',
+        #     executable='odom_tf_broadcaster',
+        #     name='odom_tf_broadcaster',
+        #     output='screen',
+        #     parameters=[{'use_sim_time': use_sim_time}]
+        # ),
         
 
         

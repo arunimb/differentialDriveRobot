@@ -1,32 +1,59 @@
 src/
-└── diffRobot
+├── diffRobot
+│   ├── config
+│   │   ├── ekf.yaml
+│   │   └── ros_gz_bridge_config.yaml
+│   ├── diffRobot
+│   │   └── __init__.py
+│   ├── launch
+│   │   └── diffRobot_gazebo2.launch.py
+│   ├── map
+│   │   ├── my_map.pgm
+│   │   └── my_map.yaml
+│   ├── meshes
+│   │   ├── base_link.STL
+│   │   ├── camera_link.STL
+│   │   ├── castor_wheel_link.STL
+│   │   ├── imu_link.STL
+│   │   ├── left_wheel_link.STL
+│   │   ├── lidar_link.STL
+│   │   └── right_wheel_link.STL
+│   ├── package.xml
+│   ├── resource
+│   │   └── diffRobot
+│   ├── rviz
+│   │   └── teleopConfig.rviz
+│   ├── scripts
+│   ├── setup.cfg
+│   ├── setup.py
+│   ├── test
+│   ├── urdf
+│   │   └── diffRobot.urdf
+│   └── worlds
+│       └── enclosed_obstacles.world
+└── slam_pkg
     ├── config
-    │   └── ros_gz_bridge_config.yaml
-    ├── diffRobot
-    │   └── __init__.py
+    │   └── slam_config.yaml
     ├── launch
-    │   └── diffRobot_gazebo2.launch.py
-    ├── map
-    ├── meshes
-    │   ├── base_link.STL
-    │   ├── camera_link.STL
-    │   ├── castor_wheel_link.STL
-    │   ├── imu_link.STL
-    │   ├── left_wheel_link.STL
-    │   ├── lidar_link.STL
-    │   └── right_wheel_link.STL
+    │   └── slam.launch.py
     ├── package.xml
     ├── resource
-    │   └── diffRobot
-    ├── rviz
-    │   └── teleopConfig.rviz
-    ├── scripts
+    │   └── slam_pkg
     ├── setup.cfg
     ├── setup.py
-    ├── test
-    ├── urdf
-    │   └── diffRobot.urdf
-    └── worlds
-        └── enclosed_obstacles.world
+    ├── slam_pkg
+    │   ├── __init__.py
+    │   ├── nodes
+    │   │   ├── __init__.py
+    │   │   ├── odom_tf_broadcaster.py
+    │   │   └── __pycache__
+    │   │       ├── __init__.cpython-312.pyc
+    │   │       └── odom_tf_broadcaster.cpython-312.pyc
+    │   └── __pycache__
+    │       └── __init__.cpython-312.pyc
+    └── test
+        ├── test_copyright.py
+        ├── test_flake8.py
+        └── test_pep257.py
 
-13 directories, 17 files
+22 directories, 35 files
